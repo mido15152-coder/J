@@ -58,12 +58,10 @@
         }
 
         .buttons-container {
-            position: relative;
-            min-height: 150px;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 30px;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
@@ -92,8 +90,7 @@
             background: white;
             color: #e63946;
             border: 2px solid #e63946;
-            position: absolute;
-            transition: all 0.3s ease;
+            transition: all 0.1s ease;
         }
 
         .no-btn:hover {
@@ -137,27 +134,24 @@
     <script>
         function moveButton() {
             const noBtn = document.getElementById('noBtn');
-            const container = document.getElementById('buttonsContainer');
-            
-            // Get container dimensions
-            const containerRect = container.getBoundingClientRect();
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
             const btnRect = noBtn.getBoundingClientRect();
-            
-            // Calculate maximum positions to keep button within container
-            const maxX = containerRect.width - btnRect.width;
-            const maxY = containerRect.height - btnRect.height;
-            
-            // Generate random positions
-            const randomX = Math.random() * maxX;
-            const randomY = Math.random() * maxY;
-            
-            // Apply new position
+
+            const margin = 20;
+            const maxX = viewportWidth - btnRect.width - margin;
+            const maxY = viewportHeight - btnRect.height - margin;
+
+            const randomX = Math.random() * maxX + margin;
+            const randomY = Math.random() * maxY + margin;
+
+            noBtn.style.position = 'fixed';
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
+            noBtn.style.zIndex = '1000';
         }
 
         function handleYes() {
-            // Replace the content with a success message
             document.querySelector('.container').innerHTML = `
                 <div class="heart" style="font-size: 120px;">🤪</div>
                 <p class="subtitle" style="font-size: 1.5rem; margin-top: 20px;">
